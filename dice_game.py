@@ -3,7 +3,7 @@ import random
 def initialize_game():
     """I wrote the code below to be the setup for the game, which will define the target score to win (25) and ask players to enter their names, which can be a fun way to personalize the game for each round if a bigger group of players wants to take turns."""
     target_score = 25
-    players = input("Enter player names separated by commas, do not add spaces:").split(',')
+    players = input("Enter player names separated by commas:").split(',')
     scores = {player: 0 for  player in players}
     return target_score, players, scores 
 
@@ -66,6 +66,24 @@ def play_turn(player):
                 print(valueerror)
 
 def play_game(target_score, players, scores):
-# function can keep trac of scores, set an index to zero and print each players score
+    """This function keeps track of the players' scores and compares them to the target score set in the intialize_game function above. The return values are different based on whether the target score of 25 is reached or not. """
+    current_player_index = 0
+    while all(score < target_score for score in scores.values()):
+        current_player = players[current_player_index]
+        print(f"\n{current_player}'s score: {scores[current_player]}")
+        points = play_turn(current_player)
+        scores[current_player] += points
+        print(f"{current_player}'s score: {scores[current_player]}")
 
-#add more here to set up start of game when program is run; should be enough to run according to rules. check when done
+        if scores[current_player] >= target_score:
+            print(f"{current_player} wins!")
+            break
+
+        current_player_index = (current_player_index + 1) % len(players)
+
+#This will be used to initialize the game, allowing the initialize_game funtion I wrote in the beginning to set the player names and initialize the scores. 
+target_score, players, scores = initialize_game()
+
+#This will start the game by taking in the max score, two different player names, and their scores as the parameters. 
+play_game(target_score, players, scores)
+
