@@ -9,7 +9,7 @@ def initialize_game():
 
 def roll_dice():
     """This function will roll three dice and will return each value rolled in a list."""
-    return [random.randint(1, 6) for _ in range(3)]
+    return tuple(random.randint(1, 6) for _ in range(3)) #changed to tuple to create unchangeable dice values unless player demands a reroll of what they generated
 
 def play_turn(player):
     """Here, f-strings will be used to concatenate the list of the values rolled to the name of the player. This will print: "[player name] rolled: [number rolled]." If 3 values match, it will be returned that the player has tupled out. If a number was rolled twice, that will be printed to the terminal and the user will be asked if they want to tre-roll the non-fixed number. """
@@ -36,9 +36,13 @@ def play_turn(player):
                 try: 
                     reroll = input("Do you want to reroll the non-fixed dice? (yes/no)").strip().lower()
                     if reroll == "yes":
-                        non_fixed_indices = [i for i in range(3) if dice[i] != fixed_number]
-                        for index in non_fixed_indices:
-                            dice[index] = random.randint(1, 6)
+                        # should now change the tuple back to the way it originally was (a list) to change the non-fixed dice
+                        dice_list = list(dice)
+                        unfixed_indices = [i for i in range(3) if dice[i] != fixed_number]
+                        for index in unfixed_indices:
+                            dice_list[index] = random.randint(1, 6)
+                        # now it can convert bak to a tuple to be fixed after the changes are made!
+                        dice = tuple(dice_list)
                         print(f"{player} rerolled: {dice}")
                         if dice[0] == dice[1] == dice[2]:
                             print("Tupled out! Zero points for this turn.")
@@ -85,5 +89,4 @@ def play_game(target_score, players, scores):
 target_score, players, scores = initialize_game()
 
 #This will start the game by taking in the max score, two different player names, and their scores as the parameters. 
-play_game(target_score, players, scores)
-
+play_game(target_score, players, scores) 
