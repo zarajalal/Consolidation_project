@@ -6,10 +6,11 @@ def initialize_game():
     players = input("Enter player names separated by commas:").split(',')
     scores = {player: 0 for  player in players}
     return target_score, players, scores 
-
+#add a test here to make sure it works then comment out
 def roll_dice():
     """This function will roll three dice and will return each value rolled in a list."""
     return tuple(random.randint(1, 6) for _ in range(3)) #changed to tuple to create unchangeable dice values unless player demands a reroll of what they generated
+#add a test here to make sure it works then comment out
 
 def play_turn(player):
     """Here, f-strings will be used to concatenate the list of the values rolled to the name of the player. This will print: "[player name] rolled: [number rolled]." If 3 values match, it will be returned that the player has tupled out. If a number was rolled twice, that will be printed to the terminal and the user will be asked if they want to tre-roll the non-fixed number. """
@@ -68,6 +69,7 @@ def play_turn(player):
                     raise ValueError("Invalid input. Please enter 'yes' or 'no'.")
             except ValueError as valueerror:
                 print(valueerror)
+#add a test here to make sure it works then comment out
 
 def play_game(target_score, players, scores):
     """This function keeps track of the players' scores and compares them to the target score set in the intialize_game function above. The return values are different based on whether the target score of 25 is reached or not. """
@@ -84,6 +86,7 @@ def play_game(target_score, players, scores):
             break
 
         current_player_index = (current_player_index + 1) % len(players)
+#add a test here to make sure it works then comment out
 
 #This will be used to initialize the game, allowing the initialize_game funtion I wrote in the beginning to set the player names and initialize the scores. 
 target_score, players, scores = initialize_game()
