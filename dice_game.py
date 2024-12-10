@@ -10,6 +10,8 @@ def initialize_game():
 def roll_dice():
     """This function will roll three dice and will return each value rolled in a list."""
     return tuple(random.randint(1, 6) for _ in range(3)) #changed to tuple to create unchangeable dice values unless player demands a reroll of what they generated
+#reccommdenation for change: 1. dice_list = [random.randint(1, 6) for _ in range(3)] 2. return dice_list
+#Test example: roll_dice()
 #add a test here to make sure it works then comment out
 
 def play_turn(player):
